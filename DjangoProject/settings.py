@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-# import django_heroku
+import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,10 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'aaukb$i#9sr&7(pi*=fjacib3m7yu9&8lo0h#3a9u@yf33uy37'
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = "=*bybvup@yv8b6=85!0c%nn%nfe#s+zpsh#2u)-r6zp@-57_@l"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
-# DEBUG = False
+# DEBUG = True
 ALLOWED_HOSTS = ['pblprojectblog.herokuapp.com', '127.0.0.1']
 
 
@@ -170,4 +171,4 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_S3_REGION_NAME = 'ap-south-1'
 # AWS_S3_REGION_NAME = 'us-east-1'
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
