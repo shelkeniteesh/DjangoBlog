@@ -21,12 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'aaukb$i#9sr&7(pi*=fjacib3m7yu9&8lo0h#3a9u@yf33uy37'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = "=*bybvup@yv8b6=85!0c%nn%nfe#s+zpsh#2u)-r6zp@-57_@l"
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
-# DEBUG = True
+# DEBUG = False
 ALLOWED_HOSTS = ['pblprojectblog.herokuapp.com', '127.0.0.1']
 
 
@@ -139,8 +137,9 @@ LOGGING = {
     },
 }
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 
