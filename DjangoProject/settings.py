@@ -12,19 +12,25 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 import django_heroku
+
+# env to read variables from .environ
+env = environ.Env()
+# env.read_env(env.str(os.path.join(BASE_DIR, '.env')))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# env.read_env(env.str(os.path.join(BASE_DIR, '.env')))
+env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
-# DEBUG = False
+DEBUG = (env('DEBUG_VALUE') == 'True')
+
 ALLOWED_HOSTS = ['pblprojectblog.herokuapp.com', '127.0.0.1']
 
 
@@ -140,10 +146,12 @@ LOGGING = {
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = '/static'
 STATIC_URL = '/static/'
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = '/media'
 MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -151,23 +159,18 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'blog-home'
 LOGIN_URL = 'login'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_POST = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "shelkeniteesh2001@gmail.com"
-EMAIL_HOST_PASSWORD = "gktolmrbprxznblf"
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_POST = env('EMAIL_POST')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
-# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-# DROPBOX_ROOT_PATH = 'Apps/djangopblblog/'
-# DROPBOX_OAUTH2_TOKEN = 'MLYAemCkuisAAAAAAAAAAYEuJAApUA7rd-aXLBhfWK-a0K5IYAkoNqaqSnBsEL2r'
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_FILE_OVERWRITE = False
-AWS_S3_REGION_NAME = 'ap-south-1'
-# AWS_S3_REGION_NAME = 'us-east-1'
-
+DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
+# print(DEFAULT_FILE_STORAGE)
+DROPBOX_ROOT_PATH = env('DROPBOX_ROOT_PATH')
+DROPBOX_OAUTH2_TOKEN = env('DROPBOX_OAUTH2_TOKEN')
+DROPBOX_APP_KEY = env('DROPBOX_APP_KEY')
+DROPBOX_APP_SECRET = env('DROPBOX_APP_SECRET')
+DROPBOX_OAUTH2_REFRESH_TOKEN = env('DROPBOX_OAUTH2_REFRESH_TOKEN')
 django_heroku.settings(locals())
